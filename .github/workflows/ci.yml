@@ -14,11 +14,6 @@ jobs:
         fetch-depth: 0
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v4.2.1
-      with:
-        # sonar.projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-        # sonar.organization: ${{ secrets.SONAR_ORG }}
-        sonar.projectKey: nghiangoclv_my-next-app
-        sonar.organization: nghiangoclv
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: https://sonarcloud.io

@@ -13,12 +13,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Set up SonarQube environment variables
+      - name: Set up SonarQube environment
+        run: |
+          echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
+          echo "SONAR_HOST_URL=${{ secrets.SONAR_HOST_URL }}" >> $GITHUB_ENV
+
       # Run SonarQube analysis
       - name: Run SonarQube analysis
         uses: sonarsource/sonarcloud-github-action@v1
         with:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          entryPoint: "sonar-scanner"
+          args: "-Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}"
+          projectBaseDir: .
 
   build-and-push:
     runs-on: ubuntu-latest

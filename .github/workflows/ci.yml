@@ -17,6 +17,9 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: https://sonarcloud.io
+        SONAR_SCANNER_OPTS: >
+          -Dsonar.projectKey=nghiangoclv_my-next-app
+          -Dsonar.organization=nghiangoclv
 
   build-and-push:
     runs-on: ubuntu-latest

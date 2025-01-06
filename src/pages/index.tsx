@@ -4,6 +4,16 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  function checkEqual(a, b) {
+    if (a == b) { // Noncompliant: using non-strict equality '=='
+      return "Equal";
+    } else {
+      return "Not equal";
+    }
+  }
+  
+  console.log(checkEqual(0, false)); // Output: "Equal"
+    
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}

@@ -3,7 +3,7 @@ name: Build, Analyze and Push Docker Image
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   sonarqube:
@@ -12,13 +12,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # - name: SonarQube Scan #For Sonarqube Server
-      #   uses: SonarSource/sonarqube-scan-action@v4.1.0
-      #   with:
-      #     args: |
-      #       -Dsonar.projectKey=nghiangoclv_nextjs-app
       - name: SonarQube Scan
-        uses: sonarsource/sonarcloud-github-action@v4.0.0
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
         with:
           args: >
             -Dsonar.organization=nghiangoclv

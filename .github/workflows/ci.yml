@@ -6,20 +6,17 @@ on:
       - main
 
 jobs:
-#   sonarqube:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v4
-#       with:
-#         fetch-depth: 0
-#     - name: SonarQube Scan
-#       uses: SonarSource/sonarqube-scan-action@v4.2.1
-#       env:
-#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         SONAR_HOST_URL: https://sonarcloud.io
-#         SONAR_SCANNER_OPTS: >
-#           -Dsonar.projectKey=nghiangoclv_my-next-app
-#           -Dsonar.organization=nghiangoclv
+  sonarqube:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   build-and-push:
     runs-on: ubuntu-latest
     steps:

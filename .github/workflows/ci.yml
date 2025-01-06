@@ -3,6 +3,9 @@ name: CI/CD Workflow
 on:
   pull_request:
     branches: ["main", "develop"]
+  push:
+    branches: ["develop"]
+  
 
 env:
 #   NODE_VERSION: 18.17
@@ -38,7 +41,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   
   build-and-push:
-    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+    if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     steps:
       # Checkout code từ repository

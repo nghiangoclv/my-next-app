@@ -16,7 +16,8 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v4.1.0
         with:
            args: |
-            -Dsonar.projectKey=NextJS-App
+            -Dsonar.projectKey=nghiangoclv_nextjs-app
+            -Dsonar.organization=nghiangoclv
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

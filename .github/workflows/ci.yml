@@ -41,12 +41,9 @@ jobs:
       - name: Wait for SonarQube Quality Gate
         run: |
           echo "Waiting for SonarQube Quality Gate to complete..."
-          sleep 10
-          STATUS=$(curl -s -u ${{ secrets.SONAR_TOKEN }} "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" | jq -r '.projectStatus.status')
-
-          if [ "$STATUS" != "OK" ]; then
-            echo "SonarQube Quality Gate failed: $STATUS"
+          result=$(curl -s -X GET -u $SONAR_TOKEN: ${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }})
+          status=$(echo $result | jq -r .projectStatus.status)
+          if [ "$status" != "OK" ]; then
+            echo "Quality gate failed. Status: $status"
             exit 1
-          else
-            echo "SonarQube Quality Gate passed."
           fi

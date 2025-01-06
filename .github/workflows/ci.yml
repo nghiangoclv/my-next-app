@@ -38,3 +38,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Wait for SonarQube Quality Gate
+        run: |
+          echo "Waiting for SonarQube Quality Gate to complete..."
+          STATUS=$(curl -s -u ${{ secrets.SONAR_TOKEN }} "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" | jq -r '.projectStatus.status')
+
+          if [ "$STATUS" != "OK" ]; then
+            echo "SonarQube Quality Gate failed: $STATUS"
+            exit 1
+          else
+            echo "SonarQube Quality Gate passed."
+          fi

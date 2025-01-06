@@ -4,31 +4,19 @@ on:
   pull_request:
     branches:
       - develop
-  
+
 env:
   SONAR_ORG: nghiangoclv
   SONAR_PJT: nghiangoclv_nextjs-app
 
 jobs:
-  # lint:
-  #   runs-on: ubuntu-latest
-  #   name: Setup Node and Install Dependencies
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup Cache and Install Dependencies
-  #       run: npm ci
-  #     - name: Run ESlint
-  #       run: npm run lint 
-
-  # unit-tests:
-  #   runs-on: ubuntu-latest
-
   quality-gate:
-      runs-on: ubuntu-latest
-      steps:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4.1.0
         with:
@@ -38,12 +26,27 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
       - name: Wait for SonarQube Quality Gate
         run: |
           echo "Waiting for SonarQube Quality Gate to complete..."
-          result=$(curl -s -X GET -u $SONAR_TOKEN: ${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }})
-          status=$(echo $result | jq -r .projectStatus.status)
+          
+          # Fetch the quality gate status from the SonarQube API
+          result=$(curl -s -X GET -u "${{ secrets.SONAR_TOKEN }}" "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}")
+          
+          # Check if the request was successful
+          if [ $? -ne 0 ]; then
+            echo "Failed to fetch quality gate status from SonarQube API."
+            exit 1
+          fi
+
+          # Parse the status from the JSON response
+          status=$(echo "$result" | jq -r .projectStatus.status)
+
+          # Check the quality gate status
           if [ "$status" != "OK" ]; then
             echo "Quality gate failed. Status: $status"
             exit 1
+          else
+            echo "Quality gate passed. Status: $status"
           fi

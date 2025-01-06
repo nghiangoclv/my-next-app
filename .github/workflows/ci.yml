@@ -15,14 +15,13 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4.1.0
         with:
-           args: |
-            # -Dsonar.projectKey=nghiangoclv_nextjs-app
-            # -Dsonar.organization=nghiangoclv
-            -sonar.projectKey=nghiangoclv_nextjs-app
-            -sonar.organization=nghiangoclv
+          args: |
+            -Dsonar.projectKey=nghiangoclv_nextjs-app
+            -Dsonar.organization=nghiangoclv
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  
   build-and-push:
     runs-on: ubuntu-latest
     needs: sonarqube

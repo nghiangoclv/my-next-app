@@ -4,10 +4,6 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  let myArray = ['a', 'b', 'c', 'd'];
-  delete myArray[2];
-  console.log(myArray[1], myArray[2]);
-
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}

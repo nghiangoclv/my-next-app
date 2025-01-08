@@ -34,7 +34,7 @@ describe('Ocean Page', () => {
       possibleCreatures.includes(content)
     );
 
-    expect(creature).toBeUndefined();
+    expect(creature).toBeDefined();
   });
 
   // it('renders two wave divs with correct classes and animations', () => {

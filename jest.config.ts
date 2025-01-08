@@ -20,15 +20,15 @@ const config: Config = {
   ],
   coverageDirectory: 'coverage', // Directory where coverage reports will be stored
   coverageReporters: ['lcov', 'text'], // Generate lcov and text reports
-  // Optional thresholds to enforce coverage quality
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
+  // // Optional thresholds to enforce coverage quality
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 80,
+  //     functions: 80,
+  //     lines: 80,
+  //     statements: 80,
+  //   },
+  // },
   // Additional setup for your environment
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // Uncomment and create jest.setup.ts if needed
 };

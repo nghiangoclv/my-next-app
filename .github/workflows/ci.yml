@@ -36,6 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Run Lint
         run: yarn lint
 
@@ -43,6 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
       - name: Run Tests
         run: yarn test
 

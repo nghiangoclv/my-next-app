@@ -43,6 +43,10 @@ jobs:
         run: |
           STATUS=$(curl -s "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" -H "Authorization: Bearer ${{ secrets.SONAR_TOKEN }}" | jq -r '.projectStatus.status')
           echo "SonarQube Quality Gate Status: $STATUS"
+          if [ "$STATUS" != "OK" ]; then
+            echo "Quality Gate Failed. Cancelling pipeline."
+            exit 1
+          fi
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

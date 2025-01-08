@@ -28,25 +28,6 @@ jobs:
       - name: Run Tests with Coverage
         run: yarn test --coverage
 
-      # - name: Upload Coverage Artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: coverage
-      #     path: ./coverage/lcov.info
-
-  # sonar-scanner:
-  #   runs-on: ubuntu-latest
-  #   needs: lint-test
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Download Coverage Artifact
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: coverage
-  
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4.1.0
         with:
@@ -57,11 +38,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      - name: Check Sonar Quality Gate Status
-        id: sonar-gate-status
+      
+      - name: Check SonarQube Quality Gate Status
         run: |
-          sonar_quality_gate_status=$(sonar-scanner-cli quality-gate --url $SONAR_HOST_URL --token $SONAR_TOKEN --projectKey $SONAR_PJT --output-format json)
-          echo "::set-output name=sonar-status::$sonar_quality_gate_status"
-
-      - name: Output Sonar Quality Gate Status
-        run: echo "Sonar Quality Gate Status:" ${{ steps.sonar-gate-status.outputs.sonar-status }}
+          STATUS=$(curl -s "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" -H "Authorization: Bearer ${{ secrets.SONAR_TOKEN }}" | jq -r '.projectStatus.status')
+          echo "SonarQube Quality Gate Status: $STATUS"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

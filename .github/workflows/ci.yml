@@ -13,7 +13,7 @@ env:
   SONAR_PJT: nghiangoclv_nextjs-app
 
 jobs:
-  lint-test:
+  quality-gate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -57,3 +57,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Check Sonar Quality Gate Status
+        id: sonar-gate-status
+        run: |
+          sonar_quality_gate_status=$(sonar-scanner-cli quality-gate --url $SONAR_HOST_URL --token $SONAR_TOKEN --projectKey $SONAR_PJT --output-format json)
+          echo "::set-output name=sonar-status::$sonar_quality_gate_status"
+
+      - name: Output Sonar Quality Gate Status
+        run: echo "Sonar Quality Gate Status:" ${{ steps.sonar-gate-status.outputs.sonar-status }}

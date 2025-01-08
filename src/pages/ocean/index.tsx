@@ -16,7 +16,7 @@ export default function OceanPage() {
                 <div className="flex items-center justify-center space-x-8 mt-10 text-6xl">
                     <span>🐟</span>
                     <span>🐠</span>
-                    <span>🐳</span>
+                    <span></span>
                 </div>
             </div>
 

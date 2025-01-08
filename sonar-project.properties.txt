@@ -1,3 +1,0 @@
-# Source and Test Files
-sonar.tests=__tests__
-sonar.sources=src

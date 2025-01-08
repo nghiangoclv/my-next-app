@@ -1,18 +1,37 @@
-import type { Config } from 'jest'
-import nextJest from 'next/jest.js'
- 
+import type { Config } from 'jest';
+import nextJest from 'next/jest.js';
+
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
-})
- 
-// Add any custom config to be passed to Jest
+});
+
 const config: Config = {
+  collectCoverage: true,
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
-  // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-}
- 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config)
+  collectCoverageFrom: [
+    "**/*.{js,jsx,ts,tsx}",
+    "!**/node_modules/**", // Exclude dependencies
+    "!**/.next/**", // Exclude build artifacts
+    "!<rootDir>/coverage/**", // Exclude coverage reports
+    "!**/*.d.ts", // Exclude TypeScript declaration files
+    "!**/jest.config.{js,ts}", // Exclude Jest config files
+    "!**/*.config.{js,ts}", // Exclude Jest config files
+  ],
+  coverageDirectory: 'coverage', // Directory where coverage reports will be stored
+  coverageReporters: ['lcov', 'text'], // Generate lcov and text reports
+  // Optional thresholds to enforce coverage quality
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+  // Additional setup for your environment
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // Uncomment and create jest.setup.ts if needed
+};
+
+// Create Jest config for Next.js
+export default createJestConfig(config);

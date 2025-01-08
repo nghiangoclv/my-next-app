@@ -10,7 +10,7 @@ describe('Ocean Page', () => {
     const sun = screen.getByText('☀️');
     expect(sun).toBeInTheDocument();
   });
-  
+
   it('renders the correct ocean creatures', () => {
     render(<OceanPage />);
 
@@ -23,14 +23,5 @@ describe('Ocean Page', () => {
 
     const sand = screen.getByText('🏖️');
     expect(sand).toBeInTheDocument();
-  });
-
-  it('checks if clicking sand triggers the correct alert', () => {
-    render(<OceanPage />);
-
-    const sand = screen.getByText('🏖️');
-    window.alert = jest.fn(); // Mock the alert function
-    sand.click();
-    expect(window.alert).toHaveBeenCalledWith('You clicked the sand!');
   });
 });

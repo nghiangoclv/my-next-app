@@ -21,7 +21,7 @@ export default function OceanPage() {
             </div>
 
             {/* Sand */}
-            <div className="flex items-center justify-center w-full flex-1 bg-yellow-400 text-6xl" onClick={() => alert("You clicked the sand!")}>
+            <div className="flex items-center justify-center w-full flex-1 bg-yellow-400 text-6xl">
                 🏖️
             </div>
         </div>

@@ -8,9 +8,9 @@ on:
     branches:
       - develop
 
-env:
-  SONAR_ORG: nghiangoclv
-  SONAR_PJT: nghiangoclv_nextjs-app
+# env:
+#   SONAR_ORG: nghiangoclv
+#   SONAR_PJT: nghiangoclv_nextjs-app
 
 jobs:
   quality-gate:
@@ -28,25 +28,33 @@ jobs:
       - name: Run Tests with Coverage
         run: yarn test --coverage
 
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4.1.0
-        with:
-          args: >
-            -Dsonar.organization=${{ env.SONAR_ORG }}
-            -Dsonar.projectKey=${{ env.SONAR_PJT }}
-            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      ### SonarQube Scanner
+      # - name: SonarQube Scan
+      #   uses: SonarSource/sonarqube-scan-action@v4.1.0
+      #   with:
+      #     args: >
+      #       -Dsonar.organization=${{ env.SONAR_ORG }}
+      #       -Dsonar.projectKey=${{ env.SONAR_PJT }}
+      #       -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
-      - name: Check SonarQube Quality Gate Status
-        run: |
-          STATUS=$(curl -s "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" -H "Authorization: Bearer ${{ secrets.SONAR_TOKEN }}" | jq -r '.projectStatus.status')
-          echo "SonarQube Quality Gate Status: $STATUS"
-          if [ "$STATUS" != "OK" ]; then
-            echo "Quality Gate Failed. Cancelling pipeline."
-            exit 1
-          fi
+      # - name: Check SonarQube Quality Gate Status
+      #   run: |
+      #     STATUS=$(curl -s "${{ secrets.SONAR_HOST_URL }}/api/qualitygates/project_status?projectKey=${{ env.SONAR_PJT }}" -H "Authorization: Bearer ${{ secrets.SONAR_TOKEN }}" | jq -r '.projectStatus.status')
+      #     echo "SonarQube Quality Gate Status: $STATUS"
+      #     if [ "$STATUS" != "OK" ]; then
+      #       echo "Quality Gate Failed. Cancelling pipeline."
+      #       exit 1
+      #     fi
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      #### SonarCloud
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      

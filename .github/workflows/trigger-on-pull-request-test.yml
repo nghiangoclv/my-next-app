@@ -1,0 +1,16 @@
+name: Trigger Pull Request Test
+
+on:
+    pull_request:
+      branches: [test]
+
+env:
+  ENV: TEST
+
+jobs:
+  ut-and-sonar-scanner:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Unit Tests and Sonar Scanner
+      run: echo "${{ env.ENV }}"
+  

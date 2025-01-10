@@ -1,4 +1,3 @@
-// fe/src/pages/beach/index.tsx
 export default function BeachPage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-sky-300">
@@ -19,15 +18,10 @@ export default function BeachPage() {
             Relax
           </button>
         </div>
-        {/* <SandComp/> */}
       </main>
       <footer className="w-full bg-sky-500 text-white py-4 text-center">
         © 2025 Beach Lovers. All rights reserved.
       </footer>
     </div>
   );
-}
-
-function SandComp({ color }: Readonly<{ color: string }>) {
-  return <div>Sand color: {color}</div>;
 }

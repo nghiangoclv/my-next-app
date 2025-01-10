@@ -2,6 +2,9 @@ name: CI Workflow
 
 on:
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
       
 jobs:
   quality-gate:

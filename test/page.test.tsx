@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
 import BeachPage from '@/pages/beach';
+import IslandPage from '@/pages/island';
 import OceanPage from '@/pages/ocean';
 
 describe('Ocean Page', () => {
@@ -54,5 +55,13 @@ describe('BeachPage', () => {
       render(<BeachPage />);
       const footer = screen.getByText(/© 2025 beach lovers. all rights reserved./i);
       expect(footer).toBeInTheDocument();
+  });
+});
+
+describe('IslandPage', () => {
+  it('renders the header with correct text', () => {
+      render(<IslandPage />);
+      const header = screen.getByRole('heading', { name: /welcome to the beach!/i });
+      expect(header).toBeInTheDocument();
   });
 });

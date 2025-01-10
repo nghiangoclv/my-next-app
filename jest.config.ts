@@ -16,6 +16,7 @@ const config: Config = {
     '!<rootDir>/coverage/**', // Exclude coverage reports
     '!**/*.d.ts', // Exclude TypeScript declaration files
     '!**/*.config.{js,ts}', // Exclude config files
+    "!**/test/**",
     '!<rootDir>/jest.config.{js,ts}', // Exclude Jest config files
     '!<rootDir>/src/pages/_app.tsx', // Exclude _app.tsx
     '!<rootDir>/src/pages/_document.tsx', // Exclude _document.tsx

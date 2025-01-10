@@ -17,6 +17,7 @@ export default function OceanPage() {
                     <span>🐟</span>
                     <span>🐠</span>
                     <span>🐳</span>
+                    <span>🦈</span>
                 </div>
             </div>
 

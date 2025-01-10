@@ -1,0 +1,11 @@
+name: Trigger Pull Request Development
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+  pull_request:
+    uses: ./.github/workflows/job-ut-and-sonar-scan.yml
+    secrets: inherit
+  

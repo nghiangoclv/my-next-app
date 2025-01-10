@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
+import Home from '@/pages';
 import BeachPage from '@/pages/beach';
 import OceanPage from '@/pages/ocean';
 

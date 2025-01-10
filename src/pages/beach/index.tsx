@@ -19,7 +19,7 @@ export default function BeachPage() {
             Relax
           </button>
         </div>
-        <SandComp/>
+        {/* <SandComp/> */}
       </main>
       <footer className="w-full bg-sky-500 text-white py-4 text-center">
         © 2025 Beach Lovers. All rights reserved.

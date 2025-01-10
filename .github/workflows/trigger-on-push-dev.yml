@@ -1,0 +1,20 @@
+name: Build and Push Artifact to Registry - Develop
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  ut_and_sonar:
+    name: UT and Sonar on DEV
+    uses: ./.github/workflows/job-ut-and-sonar-scan.yml
+    secrets: inherit
+
+  build_and_push:
+    needs: ut_and_sonar
+    name: Build and Push Artifact to Docker Hub - Dev
+    uses: ./.github/workflows/job-build-and-push-image.yml
+    with:
+      ENVIRONMENT: dev
+      DOCKER_IMAGE: ${{ github.event.repository.name }}
+    secrets: inherit

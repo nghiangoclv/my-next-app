@@ -1,0 +1,37 @@
+name: Build - Push Image to Docker Hub
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        required: true
+        type: string
+      DOCKER_IMAGE:
+        required: true
+        type: string
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ inputs.DOCKER_IMAGE }}:latest .
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ inputs.DOCKER_IMAGE }}:latest

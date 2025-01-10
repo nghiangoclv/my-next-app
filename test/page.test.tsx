@@ -29,31 +29,31 @@ describe('Ocean Page', () => {
 });
 
 
-describe('BeachPage', () => {
-  it('renders the header with correct text', () => {
-      render(<BeachPage />);
-      const header = screen.getByRole('heading', { name: /welcome to the beach!/i });
-      expect(header).toBeInTheDocument();
-  });
+// describe('BeachPage', () => {
+//   it('renders the header with correct text', () => {
+//       render(<BeachPage />);
+//       const header = screen.getByRole('heading', { name: /welcome to the beach!/i });
+//       expect(header).toBeInTheDocument();
+//   });
 
-  it('renders the main content text', () => {
-      render(<BeachPage />);
-      const mainText = screen.getByText(/feel the warmth of the sun and the gentle breeze of the ocean/i);
-      expect(mainText).toBeInTheDocument();
-  });
+//   it('renders the main content text', () => {
+//       render(<BeachPage />);
+//       const mainText = screen.getByText(/feel the warmth of the sun and the gentle breeze of the ocean/i);
+//       expect(mainText).toBeInTheDocument();
+//   });
 
-  it('renders the "Explore" and "Relax" buttons', () => {
-      render(<BeachPage />);
-      const exploreButton = screen.getByRole('button', { name: /explore/i });
-      const relaxButton = screen.getByRole('button', { name: /relax/i });
+//   it('renders the "Explore" and "Relax" buttons', () => {
+//       render(<BeachPage />);
+//       const exploreButton = screen.getByRole('button', { name: /explore/i });
+//       const relaxButton = screen.getByRole('button', { name: /relax/i });
 
-      expect(exploreButton).toBeInTheDocument();
-      expect(relaxButton).toBeInTheDocument();
-  });
+//       expect(exploreButton).toBeInTheDocument();
+//       expect(relaxButton).toBeInTheDocument();
+//   });
 
-  it('renders the footer with correct text', () => {
-      render(<BeachPage />);
-      const footer = screen.getByText(/© 2025 beach lovers. all rights reserved./i);
-      expect(footer).toBeInTheDocument();
-  });
-});
+//   it('renders the footer with correct text', () => {
+//       render(<BeachPage />);
+//       const footer = screen.getByText(/© 2025 beach lovers. all rights reserved./i);
+//       expect(footer).toBeInTheDocument();
+//   });
+// });

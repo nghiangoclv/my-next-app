@@ -28,6 +28,6 @@ export default function BeachPage() {
   );
 }
 
-function SandComp({ color }: { color: string }) {
+function SandComp({ color }: Readonly<{ color: string }>) {
   return <div>Sand color: {color}</div>;
 }

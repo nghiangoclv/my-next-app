@@ -1,8 +1,8 @@
 name: Trigger Pull Request Development
 
 on:
-    pull_request:
-      branches: [develop]
+  pull_request:
+    branches: [develop]
 
 env:
   ENV: DEV

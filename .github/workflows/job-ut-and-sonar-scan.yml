@@ -1,13 +1,8 @@
 name: CI Workflow
 
 on:
-    workflow_call:
-      secrets:
-        SERVICE_ACCOUNT_KEY:
-          required: true
-        GIT_PAT:
-          required: true
-
+  workflow_call:
+      
 jobs:
   quality-gate:
     runs-on: ubuntu-latest
